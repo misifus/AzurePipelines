@@ -25,4 +25,4 @@ stages:
     jobs:
     - deployment: DeployWebsite
       displayName: 'Deploy WebSite'
-      environment: 'Windows '
+      environment: 'Windows 2022'
