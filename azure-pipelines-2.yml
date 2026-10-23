@@ -17,7 +17,7 @@ resources:
        branch: 'main'
 
 stages:
-    -stage: DeployWebsite
+  - stage: DeployWebsite
     displayName: 'Deploy WebSite'
     pool: 
       vmImage: windows-latest
@@ -25,4 +25,12 @@ stages:
     jobs:
     - deployment: DeployWebsite
       displayName: 'Deploy WebSite'
-      environment: 'Windows 2022'
+      environment: 'Windows 2022.Servidor01'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - checkout: none 
+
+              - download: 'buildPipeline'
+              
