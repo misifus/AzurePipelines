@@ -3,3 +3,26 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+trigger:
+- none
+
+variables:
+  IIsWebsiteName: 'AzureTestProject'
+
+resources:
+ pipelines:
+     - pipeline: 'buildPipeline'
+       project: 'AzureTestProject'
+       source: 'Build pipeline'
+       branch: 'main'
+
+stages:
+    -stage: DeployWebsite
+    displayName: 'Deploy WebSite'
+    pool: 
+      vmImage: windows-latest
+
+    jobs:
+    - deployment: DeployWebsite
+      displayName: 'Deploy WebSite'
+      environment: 'Windows '
