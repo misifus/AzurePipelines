@@ -6,10 +6,9 @@ variables:
 
 resources:
   pipelines:
-    - pipeline: 'buildPipeline'
-      project: 'AzureTestProject'
+    - pipeline: buildPipeline
       source: 'BuildPipeline'
-      branch: 'main'
+      branch: main
 
 stages:
   - stage: DeployWebsite
@@ -19,7 +18,7 @@ stages:
       - deployment: DeployWebsite
         displayName: 'Deploy website'
         environment:
-          name: 'Windows 2022 server.Servidor01'
+          name: 'Windows 2022.Servidor01'
           resourceType: VirtualMachine
 
         strategy:
