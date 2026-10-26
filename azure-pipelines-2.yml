@@ -27,9 +27,15 @@ stages:
               steps:
                 - checkout: none
 
-                - download: BuildPipeline
+                - download: buildPipeline
                   displayName: 'Download Build Artifacts'
                   artifact: 'AzureTestProject'
+
+                - powershell: |
+                    Write-Host "Pipeline Workspace: $(Pipeline.Workspace)"
+                    Get-ChildItem -Path "$(Pipeline.Workspace)" -Recurse -File |
+                      Select-Object -ExpandProperty FullName
+                  displayName: 'List downloaded artifact files'
 
                 - task: IISWebAppManagementOnMachineGroup@0
                   name: StopIIS
@@ -44,7 +50,7 @@ stages:
                   displayName: 'Deploy IIS website'
                   inputs:
                     WebSiteName: '$(IISWebsiteName)'
-                    Package: '$(Pipeline.Workspace)\BuildPipeline\AzureTestProject\**\*.zip'
+                    Package: '$(Pipeline.Workspace)\buildPipeline\AzureTestProject\**\*.zip'
                     TakeAppOfflineFlag: true
 
                 - task: IISWebAppManagementOnMachineGroup@0
