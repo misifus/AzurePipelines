@@ -13,14 +13,13 @@ resources:
 stages:
   - stage: DeployWebsite
     displayName: 'Deploy website'
+    pool: 
+      vmImage: windows-latest
 
     jobs:
       - deployment: DeployWebsite
         displayName: 'Deploy website'
-        environment:
-          name: 'Windows 2022.Servidor01'
-          resourceType: VirtualMachine
-
+        environment: 'Windows 2022.Servidor01'
         strategy:
           runOnce:
             deploy:
@@ -28,6 +27,7 @@ stages:
                 - checkout: none
 
                 - download: buildPipeline
+                  name: 'DownloadBuildArtifacts'
                   displayName: 'Download Build Artifacts'
                   artifact: 'AzureTestProject'
 
